@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CardList from "./CardList";
 import SearchBox from "./SearchBox";
 import { robotsList } from "./robots";
+import './App.css'
 import "tachyons";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className="tc">
-      <h1>RoboFriends</h1>
+      <h1 className='f2'>RoboFriends</h1>
       <SearchBox searchChange={onSearchChange} />
       <CardList robots={filteredRobots} />
     </div>
