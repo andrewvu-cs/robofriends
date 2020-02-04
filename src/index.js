@@ -1,16 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Card from "./Card";
 import * as serviceWorker from "./serviceWorker";
 import "tachyons";
-import { robots } from "./robots";
+import App from './App';
 
 ReactDOM.render(
   <div>
-    {robots.map(robot => (
-      <Card id={robot.id} name={robot.name} email={robot.email} />
-    ))}
+    <App/>
   </div>,
   document.getElementById("root")
 );
