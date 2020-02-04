@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CardList from "./CardList";
-import SearchBox from "./SearchBox";
-import { robotsList } from "./robots";
+import CardList from "../components/CardList";
+import SearchBox from "../components/SearchBox";
+import Scroll from "../components/Scroll";
+
 import "./App.css";
 import "tachyons";
 import Axios from "axios";
@@ -28,7 +29,15 @@ function App() {
     <div className="tc">
       <h1 className="f2">RoboFriends</h1>
       <SearchBox searchChange={onSearchChange} />
-      <CardList robots={filteredRobots} />
+
+      {filteredRobots.length ? (
+        <h2 style={{marginTop: '50%'}}>CANNOT COMPUTE...</h2>
+
+      ) : (
+        <Scroll>
+          <CardList robots={filteredRobots} />
+        </Scroll>
+      )}
     </div>
   );
 }
