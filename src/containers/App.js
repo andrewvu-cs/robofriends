@@ -13,8 +13,9 @@ function App() {
 
   useEffect(() => {
     Axios.get("https://jsonplaceholder.typicode.com/users").then(res => {
+      console.log(res.data);
       setRobots(res.data);
-    });
+    })
   }, []);
 
   const onSearchChange = event => {
@@ -30,9 +31,8 @@ function App() {
       <h1 className="f2">RoboFriends</h1>
       <SearchBox searchChange={onSearchChange} />
 
-      {filteredRobots.length ? (
+      {!filteredRobots.length ? (
         <h2 style={{marginTop: '50%'}}>CANNOT COMPUTE...</h2>
-
       ) : (
         <Scroll>
           <CardList robots={filteredRobots} />
