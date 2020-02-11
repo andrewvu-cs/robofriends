@@ -1,41 +1,42 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
 import "./App.css";
 import "tachyons";
-import Axios from "axios";
-import { setSearchField } from "../actions";
-
+import { setSearchField, requestRobots } from "../actions";
 
 // tell me whhat props i should listen to for actions to get dispatched
 
-
-function App({props}) {
-  const [robots, setRobots] = useState([]);
+function App({ props }) {
+  // const [robots, setRobots] = useState([]);
   // const {searchField, onSearchChange} = this.props;
 
-  const searchField = useSelector(state => state.searchField)
+  const searchField = useSelector(state => state.searchRobots.searchField);
+  const robots = useSelector(state => state.requestRobots.robots);
+  const isPending = useSelector(state => state.requestRobots.isPending);
+  const error = useSelector(state => state.requestRobots.error);
   const dispatch = useDispatch();
 
   const updateSearchField = useCallback(
-    (event) => dispatch(setSearchField(event.target.value)),
+    event => dispatch(setSearchField(event.target.value)),
     [dispatch]
-  )
+  );
 
+  const onRequestRobots = useCallback(() => dispatch(requestRobots()), [dispatch]);
+  
   useEffect(() => {
-    Axios.get("https://jsonplaceholder.typicode.com/users").then(res => {
-      console.log(res.data);
-      setRobots(res.data);
-    });
-  }, []);
+    onRequestRobots();
+  },[onRequestRobots])
 
   const filteredRobots = robots.filter(robot => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
   });
 
-  return (
+  return isPending ? (
+    <h1>Loading</h1>
+  ) : (
     <div className="tc">
       <h1 className="f2">RoboFriends</h1>
       <SearchBox searchChange={updateSearchField} />
@@ -51,4 +52,4 @@ function App({props}) {
   );
 }
 
-export default (App);
+export default App;
