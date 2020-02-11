@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
@@ -9,14 +9,11 @@ import { setSearchField, requestRobots } from "../actions";
 
 // tell me whhat props i should listen to for actions to get dispatched
 
-function App({ props }) {
-  // const [robots, setRobots] = useState([]);
-  // const {searchField, onSearchChange} = this.props;
-
+function App() {
   const searchField = useSelector(state => state.searchRobots.searchField);
   const robots = useSelector(state => state.requestRobots.robots);
   const isPending = useSelector(state => state.requestRobots.isPending);
-  const error = useSelector(state => state.requestRobots.error);
+  // const error = useSelector(state => state.requestRobots.error);
   const dispatch = useDispatch();
 
   const updateSearchField = useCallback(
@@ -24,11 +21,13 @@ function App({ props }) {
     [dispatch]
   );
 
-  const onRequestRobots = useCallback(() => dispatch(requestRobots()), [dispatch]);
-  
+  const onRequestRobots = useCallback(() => dispatch(requestRobots()), [
+    dispatch
+  ]);
+
   useEffect(() => {
     onRequestRobots();
-  },[onRequestRobots])
+  }, [onRequestRobots]);
 
   const filteredRobots = robots.filter(robot => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
