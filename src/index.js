@@ -10,7 +10,7 @@ import "tachyons";
 import App from "./containers/App";
 import { searchRobots, requestRobots } from "./reducers";
 
-const logger = createLogger();
+// const logger = createLogger();
 
 const rootReducer = combineReducers({searchRobots, requestRobots})
 
