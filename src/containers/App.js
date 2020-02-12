@@ -6,6 +6,7 @@ import Scroll from "../components/Scroll";
 import "./App.css";
 import "tachyons";
 import { setSearchField, requestRobots } from "../actions";
+import Header from "../components/Header";
 
 // tell me whhat props i should listen to for actions to get dispatched
 
@@ -37,7 +38,7 @@ function App() {
     <h1>Loading</h1>
   ) : (
     <div className="tc">
-      <h1 className="f2">RoboFriends</h1>
+      <Header/>
       <SearchBox searchChange={updateSearchField} />
 
       {!filteredRobots.length ? (
